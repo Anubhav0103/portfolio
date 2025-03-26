@@ -6,7 +6,7 @@
     <title>Anubhav's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Floating Line Animation (for Home and Experience) */
+      /* Existing Animations */
       .float-line {
         animation: float 15s ease-in-out infinite;
       }
@@ -20,7 +20,6 @@
         100% { transform: translate(0, 0); opacity: 0.3; }
       }
 
-      /* Progress Bar Fill Animation (for Skills) */
       .animate-fill {
         width: 0%;
         animation: fill 1.5s ease-in-out forwards;
@@ -30,16 +29,14 @@
         100% { width: var(--target-width); }
       }
 
-      /* Timeline Line Drawing Animation */
       .animate-draw-line {
         animation: drawLine 2s ease-in-out forwards;
       }
       @keyframes drawLine {
         0% { height: 0; }
-        100% { height: 160px; } /* Matches h-40 (160px) */
+        100% { height: 160px; }
       }
 
-      /* Existing Animations */
       .animate-bounce {
         animation: bounce 1s infinite;
       }
@@ -57,6 +54,9 @@
       }
       .animate-slide-in-right {
         animation: slideInRight 1s ease-in-out;
+      }
+      .animate-fade-in {
+        animation: fadeIn 1s ease-in-out;
       }
       @keyframes bounce {
         0%, 100% { transform: translateY(0); }
@@ -81,6 +81,21 @@
       @keyframes slideInRight {
         0% { transform: translateX(50px); opacity: 0; }
         100% { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      /* Slide-In Animation for Mobile Menu */
+      .mobile-menu {
+        transition: transform 0.3s ease-in-out;
+      }
+      .mobile-menu-open {
+        transform: translateX(0);
+      }
+      .mobile-menu-closed {
+        transform: translateX(100%);
       }
     </style>
   </head>
