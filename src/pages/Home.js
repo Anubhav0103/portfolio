@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import profilePic from '../images/anubhav-profile.JPG';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 function Home() {
   return (
     <section className="h-screen flex items-center justify-center pt-16 relative overflow-hidden">
       {/* Abstract Floating Lines Background */}
       <svg className="absolute inset-0 opacity-20" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        {/* Gradient for the lines */}
         <defs>
           <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style={{ stopColor: '#2DD4BF', stopOpacity: 1 }} />
             <stop offset="100%" style={{ stopColor: '#A78BFA', stopOpacity: 1 }} />
           </linearGradient>
         </defs>
+        {/* Abstract Lines */}
         <path
           d="M 10 50 Q 200 100 300 50 T 500 50"
           fill="none"
