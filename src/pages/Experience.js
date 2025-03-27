@@ -30,7 +30,7 @@ function Experience() {
         <div className="relative">
           <div className="absolute left-1/2 w-1 bg-teal-400 h-40 transform -translate-x-1/2 animate-draw-line"></div>
           <div className="relative bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg animate-slide-in-left">
-            <div className="absolute w-6 h-6 bg-teal-400 rounded-full left-1/2 transform -translate-x-1/2 -mt-2"></div>
+            <div className="absolute w-4 h-4 sm:w-6 sm:h-6 bg-teal-400 rounded-full left-1/2 transform -translate-x-1/2 -mt-2"></div>
             <h3 className="text-lg sm:text-xl font-semibold text-white">Full Stack Developer Intern</h3>
             <p className="text-teal-400 text-sm sm:text-base">Societe Generale, India | Mar 2023 - Aug 2024</p>
             <p className="text-gray-300 mt-2 text-sm sm:text-base">
