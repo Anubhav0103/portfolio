@@ -32,7 +32,7 @@ function Experience() {
           <div className="relative bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg animate-slide-in-left">
             <div className="absolute w-4 h-4 sm:w-6 sm:h-6 bg-teal-400 rounded-full left-1/2 transform -translate-x-1/2 -mt-2"></div>
             <h3 className="text-lg sm:text-xl font-semibold text-white">Full Stack Developer Intern</h3>
-            <p className="text-teal-400 text-sm sm:text-base">Societe Generale, India | Mar 2023 - Aug 2024</p>
+            <p className="text-teal-400 text-sm sm:text-base">Societe Generale, India | Mar 2023 - Aug 2023</p>
             <p className="text-gray-300 mt-2 text-sm sm:text-base">
               During my internship at Societe Generale, I worked on a variety of full-stack development projects, contributing to both frontend and backend development. I collaborated closely with a team of developers and stakeholders to deliver high-quality solutions for internal tools and client-facing applications.
             </p>

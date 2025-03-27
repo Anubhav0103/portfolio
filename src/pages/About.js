@@ -20,6 +20,14 @@ function About() {
         <p className="text-teal-400 italic text-sm sm:text-base">
           Fun Fact: I once debugged a production issue while on a road trip—coding on the go is my superpower!
         </p>
+        {/* Download Resume Button */}
+        <a
+          href="/resume.pdf"
+          download="Anubhav_Pandey_Resume.pdf"
+          className="mt-6 inline-block bg-teal-400 text-gray-900 py-2 px-4 rounded-lg shadow-lg hover:bg-purple-400 hover:scale-105 transition-all duration-300 transform animate-bounce text-sm sm:text-base"
+        >
+          Download Resume
+        </a>
       </div>
     </section>
   );
