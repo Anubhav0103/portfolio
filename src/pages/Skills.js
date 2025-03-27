@@ -29,29 +29,28 @@ function Skills() {
   ];
 
   return (
-    <section className="min-h-screen pt-24 px-8 bg-gray-900 relative overflow-hidden">
-      {/* Subtle Background Gradient */}
+    <section className="min-h-screen pt-16 sm:pt-24 px-4 sm:px-8 bg-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-teal-400/10 to-purple-400/10 opacity-30"></div>
-      <h2 className="text-3xl font-bold text-white text-center mb-12 relative z-10">Skills</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto relative z-10">
+      <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 relative z-0">Skills</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto relative z-0">
         {skills.map((skill) => (
           <div
             key={skill.name}
-            className="group bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-teal-400 transition transform hover:-translate-y-2 animate-slide-up flex flex-col items-center"
+            className="group bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-teal-400 transition transform hover:-translate-y-2 animate-slide-up flex flex-col items-center"
           >
             <img
               src={skill.logo}
               alt={`${skill.name} logo`}
-              className="w-20 h-20 mb-4 group-hover:scale-110 transition-transform"
+              className="w-16 h-16 sm:w-20 sm:h-20 mb-4 group-hover:scale-110 transition-transform"
             />
-            <span className="text-lg font-semibold text-white">{skill.name}</span>
+            <span className="text-base sm:text-lg font-semibold text-white">{skill.name}</span>
             <div className="w-full bg-gray-700 rounded-full h-2.5 mt-4">
               <div
                 className="bg-teal-400 h-2.5 rounded-full animate-fill"
-                style={{ '--target-width': skill.level }} // Set custom property
+                style={{ '--target-width': skill.level }}
               ></div>
             </div>
-            <p className="mt-4 text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+            <p className="mt-4 text-gray-400 text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity">
               {skill.desc}
             </p>
           </div>
