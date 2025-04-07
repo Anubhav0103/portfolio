@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Anubhav Pandey's Portfolio</title>
-    <title>Anubhav Pandey's Portfolio</title>
-    <meta name="description" content="Portfolio of Anubhav Pandey, a passionate Full Stack Developer showcasing skills, projects, and experience.">
-    <meta name="keywords" content="Anubhav Pandey, Full Stack Developer, React, Node.js, Portfolio">
-    <meta name="author" content="Anubhav Pandey">
-    <meta property="og:title" content="Anubhav Pandey's Portfolio">
-    <meta property="og:description" content="Portfolio of Anubhav Pandey, a passionate Full Stack Developer.">
-    <meta property="og:image" content="%PUBLIC_URL%/anubhav-profile.jpg">
-    <meta property="og:url" content="https://anubhav-portfolio-0103.netlify.app">>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Anubhav's Portfolio</title>
+    <title>Anubhav Pandey's Portfolio</title>
+    <meta name="description" content="Portfolio of Anubhav Pandey, a passionate Full Stack Developer showcasing skills, projects, and experience." />
+    <meta name="keywords" content="Anubhav Pandey, Full Stack Developer, React, Node.js, Portfolio" />
+    <meta name="author" content="Anubhav Pandey" />
+    <meta property="og:title" content="Anubhav Pandey's Portfolio" />
+    <meta property="og:description" content="Portfolio of Anubhav Pandey, a passionate Full Stack Developer." />
+    <meta property="og:image" content="%PUBLIC_URL%/anubhav-profile.jpg" />
+    <meta property="og:url" content="https://anubhav-portfolio-0103.netlify.app" />
+    <!-- React and ReactDOM -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- React Router -->
+    <script src="https://cdn.jsdelivr.net/npm/react-router-dom@6/dist/umd/react-router-dom.min.js"></script>
+    <!-- EmailJS for Contact Form -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Existing Animations */
+      /* Custom Animations */
       .float-line {
         animation: float 15s ease-in-out infinite;
       }
@@ -96,7 +102,7 @@
         100% { opacity: 1; }
       }
 
-      /* Slide-In Animation for Mobile Menu */
+      /* Mobile Menu Slide-In */
       .mobile-menu {
         transition: transform 0.3s ease-in-out;
       }
@@ -110,5 +116,274 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/babel">
+      const { useState, useEffect, useRef } = React;
+      const { BrowserRouter: Router, Routes, Route, NavLink, Link } = ReactRouterDOM;
+
+      // Navbar Component
+      function Navbar() {
+        const [isVisible, setIsVisible] = useState(true);
+        const [lastScrollY, setLastScrollY] = useState(0);
+        const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+        useEffect(() => {
+          const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 50) {
+              setIsVisible(false);
+            } else {
+              setIsVisible(true);
+            }
+            setLastScrollY(currentScrollY);
+          };
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, [lastScrollY]);
+
+        const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+        return (
+          <nav className={`fixed top-0 w-full bg-gray-900 shadow-lg p-4 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+            <div className="sm:hidden flex justify-between items-center">
+              <button onClick={toggleMenu} className="text-teal-400 focus:outline-none">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
+                </svg>
+              </button>
+            </div>
+            <ul className={`${isMenuOpen ? 'flex' : 'hidden'} sm:flex flex-col sm:flex-row sm:justify-center sm:space-x-8 space-y-4 sm:space-y-0 mt-4 sm:mt-0 text-center bg-gray-900 sm:bg-transparent absolute sm:static top-14 left-0 w-full sm:w-auto z-50`}>
+              {['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
+                <li key={item} className="py-2 sm:py-0">
+                  <NavLink
+                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                    className={({ isActive }) => `text-teal-400 hover:text-purple-400 transition transform hover:scale-110 text-sm sm:text-base ${isActive ? 'underline' : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        );
+      }
+
+      // Home Component
+      function Home() {
+        return (
+          <section className="h-screen flex items-center justify-center pt-12 sm:pt-16 px-4 sm:px-8 relative overflow-hidden">
+            <svg className="absolute inset-0 opacity-20" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: '#2DD4BF', stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: '#A78BFA', stopOpacity: 1 }} />
+                </linearGradient>
+              </defs>
+              <path d="M 10 50 Q 200 100 300 50 T 500 50" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-1" />
+              <path d="M 600 300 Q 400 200 300 300 T 100 300" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-2" />
+              <path d="M 50 500 Q 150 400 250 500 T 450 500" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-3" />
+              <path d="M 700 100 Q 500 150 400 100 T 200 100" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-4" />
+            </svg>
+            <div className="relative z-0 text-center max-w-sm sm:max-w-md md:max-w-2xl">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white animate-bounce">Anubhav Pandey</h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-400 mt-2 animate-pulse">Full Stack Developer</p>
+              <img src="/images/anubhav-profile.JPG" alt="Anubhav Pandey" className="mt-4 rounded-full mx-auto border-4 border-teal-400 hover:rotate-6 transition-transform w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover object-left" />
+              <Link to="/contact" className="mt-4 sm:mt-6 inline-block bg-teal-400 text-gray-900 py-2 px-4 rounded hover:bg-purple-400 transition transform hover:scale-105 text-sm sm:text-base">
+                Get in Touch
+              </Link>
+            </div>
+          </section>
+        );
+      }
+
+      // About Component
+      function About() {
+        return (
+          <section className="min-h-screen pt-16 sm:pt-20 px-4 sm:px-8 bg-gray-800 bg-opacity-80 bg-blend-overlay" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')" }}>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6 animate-fade-in-up">About Me</h2>
+            <div className="max-w-sm sm:max-w-md md:max-w-2xl mx-auto text-center">
+              <p className="mb-4 text-sm sm:text-base text-gray-300">I’m a B.E. grad from Siddaganga Institute of Technology (2023) with a knack for coding cool stuff. I interned at Societe Generale, where I rocked React, Node.js, and SQL, building web apps that users loved.</p>
+              <p className="mb-4 text-sm sm:text-base text-gray-300">I’m passionate about creating scalable, user-friendly applications and always learning new tech. When I’m not coding, you’ll find me exploring new places or diving into a good sci-fi book.</p>
+              <p className="text-teal-400 italic text-sm sm:text-base">Fun Fact: I once debugged a production issue while on a road trip—coding on the go is my superpower!</p>
+              <a href="/resume.pdf" download="Anubhav_Pandey_Resume.pdf" className="mt-6 inline-block bg-teal-400 text-gray-900 py-2 px-4 rounded-lg shadow-lg hover:bg-purple-400 hover:scale-105 transition-all duration-300 transform animate-bounce text-sm sm:text-base">
+                Download Resume
+              </a>
+            </div>
+          </section>
+        );
+      }
+
+      // Skills Component
+      function Skills() {
+        const skills = [
+          { name: 'HTML', logo: '/images/html-logo.png', level: '100%', desc: 'Built semantic, accessible web pages.' },
+          { name: 'CSS', logo: '/images/css-logo.png', level: '90%', desc: 'Crafted responsive designs with modern layouts.' },
+          { name: 'Tailwind CSS', logo: '/images/tailwind-logo.png', level: '85%', desc: 'Styled apps with utility-first CSS.' },
+          { name: 'JavaScript', logo: '/images/javascript-logo.png', level: '100%', desc: 'Developed dynamic, interactive features.' },
+          { name: 'React', logo: '/images/react-logo.png', level: '85%', desc: 'Built scalable SPAs with React.' },
+          { name: 'Node.js', logo: '/images/nodejs-logo.png', level: '100%', desc: 'Created RESTful APIs and servers.' },
+          { name: 'Express.js', logo: '/images/express-logo.png', level: '100%', desc: 'Built backend routes and middleware.' },
+          { name: 'MongoDB', logo: '/images/mongodb-logo.png', level: '100%', desc: 'Managed NoSQL databases for apps.' },
+          { name: 'SQL', logo: '/images/sql-logo.png', level: '100%', desc: 'Optimized relational database queries.' },
+          { name: 'Python', logo: '/images/python-logo.png', level: '50%', desc: 'Developed scripts and web apps.' },
+          { name: 'Flask', logo: '/images/flask-logo.png', level: '70%', desc: 'Built lightweight web apps with Flask.' },
+          { name: 'C++ (DSA)', logo: '/images/cpp-logo.png', level: '50%', desc: 'Solved complex problems with DSA.' },
+        ];
+
+        return (
+          <section className="min-h-screen pt-16 sm:pt-24 px-4 sm:px-8 bg-gray-900 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-400/10 to-purple-400/10 opacity-30"></div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 relative z-0">Skills</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto relative z-0">
+              {skills.map((skill) => (
+                <div key={skill.name} className="group bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-teal-400 transition transform hover:-translate-y-2 animate-slide-up flex flex-col items-center">
+                  <img src={skill.logo} alt={`${skill.name} logo`} className="w-16 h-16 sm:w-20 sm:h-20 mb-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-base sm:text-lg font-semibold text-white">{skill.name}</span>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5 mt-4">
+                    <div className="bg-teal-400 h-2.5 rounded-full animate-fill" style={{ '--target-width': skill.level }}></div>
+                  </div>
+                  <p className="mt-4 text-gray-400 text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity">{skill.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      }
+
+      // Experience Component
+      function Experience() {
+        return (
+          <section className="min-h-screen pt-24 sm:pt-32 px-4 sm:px-8 bg-gray-800 relative overflow-hidden flex items-center">
+            <svg className="absolute inset-0 opacity-10" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: '#2DD4BF', stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: '#A78BFA', stopOpacity: 1 }} />
+                </linearGradient>
+              </defs>
+              <path d="M 10 50 Q 200 100 300 50 T 500 50" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-1" />
+              <path d="M 600 300 Q 400 200 300 300 T 100 300" fill="none" stroke="url(#lineGrad)" strokeWidth="1" className="float-line float-line-2" />
+            </svg>
+            <div className="relative z-0 max-w-sm sm:max-w-md md:max-w-3xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 animate-fade-in-up">Experience</h2>
+              <div className="relative">
+                <div className="absolute left-1/2 w-1 bg-teal-400 h-40 transform -translate-x-1/2 animate-draw-line"></div>
+                <div className="relative bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg animate-slide-in-left">
+                  <div className="absolute w-4 h-4 sm:w-6 sm:h-6 bg-teal-400 rounded-full left-1/2 transform -translate-x-1/2 -mt-2"></div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white">Full Stack Developer Intern</h3>
+                  <p className="text-teal-400 text-sm sm:text-base">Societe Generale, India | Mar 2023 - Aug 2023</p>
+                  <p className="text-gray-300 mt-2 text-sm sm:text-base">During my internship at Societe Generale, I worked on a variety of full-stack development projects, contributing to both frontend and backend development. I collaborated closely with a team of developers and stakeholders to deliver high-quality solutions for internal tools and client-facing applications.</p>
+                  <ul className="list-disc ml-5 mt-2 text-gray-300 text-xs sm:text-sm">
+                    <li>Developed responsive web applications using React, Node.js, and SQL, improving user engagement through intuitive UI/UX designs.</li>
+                    <li>Integrated RESTful APIs to connect frontend and backend, enabling seamless data flow and reducing latency in data retrieval.</li>
+                    <li>Optimized database queries in SQL, reducing load times for key features, which significantly improved application performance.</li>
+                    <li>Collaborated with a team of 5 developers to deliver features on tight deadlines, ensuring 100% on-time delivery and meeting all project milestones.</li>
+                    <li>Implemented user authentication with JWT, enhancing app security by protecting sensitive user data and preventing unauthorized access.</li>
+                    <li>Participated in code reviews and debugging sessions, improving code quality and reducing bugs across the project.</li>
+                    <li>Documented technical processes and workflows, creating guides that helped onboard new team members faster.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // Projects Component
+      function Projects() {
+        const projects = [
+          { name: 'Personal Portfolio', desc: 'React & Tailwind CSS site.', img: '/images/portfolio-screenshot.jpg', url: 'https://github.com/Anubhav0103/portfolio' },
+          { name: 'Expense Tracker', desc: 'Node.js, Express, SQL app.', img: '/images/expense-tracker-screenshot.jpeg', url: 'https://github.com/Anubhav0103/expensetracker2' },
+          { name: 'Chat App', desc: 'MongoDB, Express, WebSocket.', img: '/images/chat-app-screenshot.jpg', url: 'https://github.com/Anubhav0103/chatapp' },
+          { name: 'Librarian App', desc: 'Monitors issuing, returning date and due fine', img: '/images/login-signup-screenshot.jpg', url: 'https://github.com/Anubhav0103/library' },
+        ];
+
+        return (
+          <section className="min-h-screen pt-16 sm:pt-20 px-4 sm:px-8 bg-gray-900 animate-fade-in">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6">Projects</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-sm sm:max-w-md md:max-w-4xl mx-auto">
+              {projects.map((project) => (
+                <div key={project.name} className="bg-gray-800 p-4 rounded shadow hover:shadow-purple-400 hover:scale-105 transition transform animate-slide-up">
+                  <img src={project.img} alt={project.name} className="w-full h-24 sm:h-32 object-cover rounded mb-2" />
+                  <h3 className="text-lg sm:text-xl font-semibold text-white">{project.name}</h3>
+                  <p className="text-gray-400 text-sm sm:text-base">{project.desc}</p>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-purple-400 text-sm sm:text-base">View Project</a>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      }
+
+      // Contact Component
+      function Contact() {
+        const form = useRef();
+
+        const sendEmail = (e) => {
+          e.preventDefault();
+          emailjs.sendForm('service_4s5ztbn', 'template_vuyq2fm', form.current, 'JdjTf5zW0LCckjY_s')
+            .then((result) => {
+              alert('Message sent successfully!');
+              form.current.reset();
+            }, (error) => {
+              alert('Failed to send message. Please try again.');
+              console.log(error.text);
+            });
+        };
+
+        return (
+          <section className="min-h-screen pt-16 sm:pt-20 px-4 sm:px-8 bg-gray-800 animate-fade-in-up">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6">Contact</h2>
+            <div className="max-w-sm sm:max-w-md md:max-w-lg mx-auto">
+              <p className="text-center mb-4 text-sm sm:text-base text-gray-300">
+                Email: <a href="mailto:anubhav06cd@gmail.com" className="text-teal-400 hover:text-purple-400">anubhav06cd@gmail.com</a> <br />
+                Phone: +91 7032534877 <br />
+                GitHub: <a href="https://github.com/Anubhav0103" className="text-teal-400 hover:text-purple-400">github.com/Anubhav0103</a>
+              </p>
+              <form ref={form} onClick={sendEmail} className="bg-gray-900 p-4 sm:p-6 rounded-lg shadow-lg">
+                <div className="mb-4">
+                  <label className="block text-white mb-2 text-sm sm:text-base" htmlFor="name">Name</label>
+                  <input type="text" name="name" id="name" className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-teal-400 text-sm sm:text-base" required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-white mb-2 text-sm sm:text-base" htmlFor="email">Email</label>
+                  <input type="email" name="email" id="email" className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-teal-400 text-sm sm:text-base" required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-white mb-2 text-sm sm:text-base" htmlFor="message">Message</label>
+                  <textarea name="message" id="message" className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:border-teal-400 text-sm sm:text-base" rows="4" required></textarea>
+                </div>
+                <button type="submit" className="w-full bg-teal-400 text-gray-900 py-2 rounded hover:bg-purple-400 transition transform hover:scale-105 text-sm sm:text-base">Send Message</button>
+              </form>
+            </div>
+          </section>
+        );
+      }
+
+      // App Component
+      function App() {
+        return (
+          <Router>
+            <div className="min-h-screen bg-gray-800 text-gray-300 font-sans">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/skills" element={<Skills />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </div>
+          </Router>
+        );
+      }
+
+      // Render the App
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+    <!-- Babel for JSX -->
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
   </body>
 </html>
